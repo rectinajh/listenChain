@@ -1,0 +1,42 @@
+[logger]
+Filename = "./logs/sniffer.log"
+Level = "debug"
+Compress = false
+MaxSize = 100
+MaxAge = 7
+MaxBackups = 512
+Named = "[SNIFFER]"
+
+[redis]
+Domain = "polygon:WEB5"
+MaxIdle = 8
+MaxActive = 0
+IdleTimeout = 0
+URI = "redis://:@127.0.0.1:6379/1"
+
+
+[sniffer]
+SecrityHeight = 0
+NumberOfBlocks = 512
+Callback = "http://127.0.0.1:8000/blockEventReceiver"
+
+[[sniffer.contracts]]
+Addr = "0x03595Fa27413676B0CD1F5f5f1E1d7969A451311"
+Abi = "./contracts/PixelPerfectNFT.abi"
+Events = [
+    "TransferSingle","NFTMinted"
+]
+
+[[sniffer.contracts]]
+Addr = "0xF7fF039f631CF4767c4eD99fd7b3041360A09720"
+Abi = "./contracts/NFTMarketplace.abi"
+Events = [
+    "NFTAdded","NFTSold","FeesPaid"
+]
+
+
+
+[backend]
+# Addr = "http://127.0.0.1:8545"
+Addr = "https://polygon-mumbai-bor.publicnode.com"
+TransactionsPerSecond = 128
